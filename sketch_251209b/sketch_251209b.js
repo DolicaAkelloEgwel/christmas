@@ -34,7 +34,7 @@ function draw() {
     flake.update();
     push();
     translate(flake.posX, flake.posY);
-    rotate(frameCount * 0.75);
+    rotate((flake.angleOffset + frameCount) * 0.75);
     flake.display();
     pop();
   }
@@ -45,6 +45,7 @@ class Snowflake {
     this.posX = random(0, width);
     this.posY = random(-height, 0);
     this.size = random(30, 100);
+    this.angleOffset = random(0, 360);
     
   }
   update() {
@@ -59,5 +60,16 @@ class Snowflake {
     textSize(this.size);
     fill(171, 209, 243);
     text("❄", 0, 0);
+  }
+}
+
+class Reindeer {
+  constructor() {
+    this.posX = width + 50;
+    this.posY = random(0, height);
+  }
+  display() {
+    textSize(150);
+    text("🦌", 0, 0);
   }
 }
