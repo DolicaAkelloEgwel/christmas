@@ -86,10 +86,11 @@ class Sleigh {
   constructor() {
     let current_x = 0;
     this.N_REINDEER = 9;
-    let REINDEER_X_DIST = 150;
+    let REINDEER_X_DIST = 200;
+    this.Y_BORDER = 200
     
     this.first_x = width * 2;
-    this.first_y = random(30, height - 30);
+    this.first_y = random(this.Y_BORDER, height - this.Y_BORDER);
     
     this.speed = 3;
     
@@ -103,11 +104,12 @@ class Sleigh {
   update() {
     for (let reindeer of this.reindeer) {
       reindeer.posX -= this.speed;
+      reindeer.posY = this.first_y + sin(reindeer.posX * 0.75) * 50;
     }
     if (this.reindeer[this.N_REINDEER - 1].posX < -200) {
-      let new_y = random(30, height - 30);
+      this.first_y = random(this.Y_BORDER, height - this.Y_BORDER);
       for (let reindeer of this.reindeer) {
-        reindeer.posY = new_y;
+        reindeer.posY = this.first_y;
         reindeer.posX += width * 2.5;
       }
     }
