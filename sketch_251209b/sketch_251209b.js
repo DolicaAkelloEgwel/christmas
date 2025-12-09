@@ -4,6 +4,8 @@ let halfWidth;
 let halfHeight;
 let videoStretch;
 
+let N_SNOWFLAKES = 80;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
@@ -20,7 +22,7 @@ function setup() {
   video.size(512, 512);
   video.hide();
   
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < N_SNOWFLAKES; i++) {
     snowflakes.push(new Snowflake());
   }
 }
@@ -64,12 +66,22 @@ class Snowflake {
 }
 
 class Reindeer {
-  constructor() {
-    this.posX = width + 50;
-    this.posY = random(0, height);
+  constructor(x, y) {
+    this.posX = x;
+    this.posY = y;
   }
   display() {
     textSize(150);
     text("🦌", 0, 0);
+  }
+}
+
+class Sleigh {
+  constructor() {
+    let current_x = 0;
+    this.first_x = width + 20;
+    this.first_y = random(30, height - 30);
+    
+    this.reindeer = [new Reindeer(first_x, first_y)];
   }
 }
