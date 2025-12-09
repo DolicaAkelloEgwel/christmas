@@ -44,6 +44,8 @@ function draw() {
     flake.display();
     pop();
   }
+  sleigh.update();
+  sleigh.display();
 }
 
 class Snowflake {
@@ -84,12 +86,12 @@ class Sleigh {
   constructor() {
     let current_x = 0;
     let N_REINDEER = 9;
-    let REINDEER_X_DIST = 50;
+    let REINDEER_X_DIST = 150;
     
     this.first_x = width + 20;
     this.first_y = random(30, height - 30);
     
-    this.speed = 5;
+    this.speed = 3;
     
     this.reindeer = [new Reindeer(this.first_x, this.first_y)];
     
