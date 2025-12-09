@@ -78,7 +78,7 @@ class Reindeer {
   }
   display() {
     textSize(150);
-    text("🦌", this.posX, this.posY);
+    text("🦌", 0, 0);
   }
 }
 
@@ -116,7 +116,10 @@ class Sleigh {
   }
   display() {
     for (let reindeer of this.reindeer) {
+      push();
+      translate(reindeer.posX, reindeer.posY);
       reindeer.display();
+      pop();
     }
   }
 }
