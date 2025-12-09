@@ -86,7 +86,7 @@ class Sleigh {
   constructor() {
     let current_x = 0;
     this.N_REINDEER = 9;
-    let REINDEER_X_DIST = 200;
+    let REINDEER_X_DIST = 150;
     this.Y_BORDER = 200
     
     this.first_x = width * 2;
