@@ -85,17 +85,17 @@ class Reindeer {
 class Sleigh {
   constructor() {
     let current_x = 0;
-    let N_REINDEER = 9;
+    this.N_REINDEER = 9;
     let REINDEER_X_DIST = 150;
     
-    this.first_x = width + 20;
+    this.first_x = width * 2;
     this.first_y = random(30, height - 30);
     
     this.speed = 3;
     
     this.reindeer = [new Reindeer(this.first_x, this.first_y)];
     
-    for (let i = 1; i < N_REINDEER; i++) {
+    for (let i = 1; i < this.N_REINDEER; i++) {
       current_x = this.first_x + (i * REINDEER_X_DIST);
       this.reindeer.push(new Reindeer(current_x, this.first_y));
     }
@@ -103,6 +103,13 @@ class Sleigh {
   update() {
     for (let reindeer of this.reindeer) {
       reindeer.posX -= this.speed;
+    }
+    if (this.reindeer[this.N_REINDEER - 1].posX < -200) {
+      let new_y = random(30, height - 30);
+      for (let reindeer of this.reindeer) {
+        reindeer.posY = new_y;
+        reindeer.posX += width * 2.5;
+      }
     }
   }
   display() {
