@@ -6,8 +6,6 @@ let videoStretch;
 
 let N_SNOWFLAKES = 80;
 
-let REINDEER_X_DIST = 20;
-
 let sleigh;
 
 function setup() {
@@ -85,6 +83,9 @@ class Reindeer {
 class Sleigh {
   constructor() {
     let current_x = 0;
+    let N_REINDEER = 9;
+    let REINDEER_X_DIST = 50;
+    
     this.first_x = width + 20;
     this.first_y = random(30, height - 30);
     
@@ -92,10 +93,10 @@ class Sleigh {
     
     this.reindeer = [new Reindeer(this.first_x, this.first_y)];
     
-    //for (let i = 1; i < N_REINDEER; i++) {
-    //  current_x = first_x + (i * REINDEER_X_DIST);
-    //  this.reindeer.push(new Reindeer(current_x, first_y));
-    //}
+    for (let i = 1; i < N_REINDEER; i++) {
+      current_x = this.first_x + (i * REINDEER_X_DIST);
+      this.reindeer.push(new Reindeer(current_x, this.first_y));
+    }
   }
   update() {
     for (let reindeer of this.reindeer) {
