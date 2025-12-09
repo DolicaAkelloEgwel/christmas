@@ -118,6 +118,7 @@ class Sleigh {
     for (let reindeer of this.reindeer) {
       push();
       translate(reindeer.posX, reindeer.posY);
+      rotate(cos(reindeer.posX * 0.75) * 90 * 0.25);
       reindeer.display();
       pop();
     }
