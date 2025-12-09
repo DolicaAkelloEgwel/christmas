@@ -1,13 +1,16 @@
-/*
-WEBCAM INPUT
-Getting webcam input with p5.js is super easy! We create a variable for it, start the capture in setup(), and can display the result with the image() command! In upcoming examples, we'll also see how we can access the pixels from the webcam
-*/
-
 let video;
 let snowflakes = [];
+let halfWidth;
+let halfHeight;
+let videoStretch;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  
+  halfWidth = windowWidth / 2;
+  halfHeight = windowHeight / 2;
+  
+  videoStretch = 512 * (windowHeight / 512)
   
   angleMode(DEGREES);
   textAlign(CENTER, CENTER);
@@ -17,20 +20,23 @@ function setup() {
   video.size(512, 512);
   video.hide();
   
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 80; i++) {
     snowflakes.push(new Snowflake());
   }
 }
 
 function draw() { 
-  // Display the video just like an image! 
   background(0);
   
-  image(video, windowWidth/2,windowHeight/2, 512 * (height / 512), height);
+  image(video, halfWidth, halfHeight, videoStretch, height);
   
   for (let flake of snowflakes) {
     flake.update();
+    push();
+    translate(flake.posX, flake.posY);
+    rotate(frameCount * 0.75);
     flake.display();
+    pop();
   }
 }
 
@@ -38,11 +44,11 @@ class Snowflake {
   constructor() {
     this.posX = random(0, width);
     this.posY = random(-height, 0);
-    this.size = random(20, 50);
+    this.size = random(30, 100);
     
   }
   update() {
-    let ySpeed = 24 / this.size;
+    let ySpeed = 80 / this.size;
     this.posY += ySpeed;
     
     if (this.posY > height + 50) {
@@ -52,6 +58,6 @@ class Snowflake {
   display() {
     textSize(this.size);
     fill(171, 209, 243);
-    text("❄", this.posX, this.posY);
+    text("❄", 0, 0);
   }
 }
