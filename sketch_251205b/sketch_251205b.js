@@ -29,11 +29,11 @@ function draw() {
   for (let flake of snowflakes) {
     // Update each snowflake position and display
     flake.update(currentTime);
-    push();
-    translate(flake.posX, flake.posY);
-    rotate((frameCount % 360) * flake.speed);
+    //push();
+    //translate(flake.posX, flake.posY);
+    //rotate((frameCount % 360) * flake.speed);
     flake.display();
-    pop();
+    //pop();
   }
 }
 
@@ -46,7 +46,7 @@ class Snowflake {
     this.initialAngle = random(0, 360);
     this.size = random(20, 50);
     this.radius = sqrt(random(pow(width / 2, 2)));
-    this.speed = this.size * 0.01 * (floor(random(0,2)) * 2 - 1);
+    this.speed = this.size * 0.1 * (floor(random(0,2)) * 2 - 1);
   }
 
   update(time) {
@@ -72,6 +72,6 @@ class Snowflake {
   display() {
     textSize(this.size);
     noStroke();
-    text("❄", this.posX, this.posY);
+    text("ha", this.posX, this.posY);
   }
 }
