@@ -8,6 +8,8 @@ let N_SNOWFLAKES = 80;
 
 let REINDEER_X_DIST = 20;
 
+let sleigh;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
@@ -27,6 +29,8 @@ function setup() {
   for (let i = 0; i < N_SNOWFLAKES; i++) {
     snowflakes.push(new Snowflake());
   }
+  
+  sleigh = new Sleigh();
 }
 
 function draw() { 
@@ -74,7 +78,7 @@ class Reindeer {
   }
   display() {
     textSize(150);
-    text("🦌", 0, 0);
+    text("🦌", this.posX, this.posY);
   }
 }
 
@@ -86,15 +90,12 @@ class Sleigh {
     
     this.speed = 5;
     
-    this.reindeer = [new Reindeer(first_x, first_y)];
+    this.reindeer = [new Reindeer(this.first_x, this.first_y)];
     
-    for (let i = 1; i < N_REINDEER; i++) {
-      current_x = first_x + (i * REINDEER_X_DIST);
-      this.reindeer.push(new Reindeer(current_x, first_y));
-    }
-  }
-  past_edge() {
-    return this.reindeer[N_REINDEER - 1].posX < -20;
+    //for (let i = 1; i < N_REINDEER; i++) {
+    //  current_x = first_x + (i * REINDEER_X_DIST);
+    //  this.reindeer.push(new Reindeer(current_x, first_y));
+    //}
   }
   update() {
     for (let reindeer of this.reindeer) {
