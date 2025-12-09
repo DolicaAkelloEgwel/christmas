@@ -6,6 +6,8 @@ let videoStretch;
 
 let N_SNOWFLAKES = 80;
 
+let REINDEER_X_DIST = 20;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   
@@ -82,6 +84,26 @@ class Sleigh {
     this.first_x = width + 20;
     this.first_y = random(30, height - 30);
     
+    this.speed = 5;
+    
     this.reindeer = [new Reindeer(first_x, first_y)];
+    
+    for (let i = 1; i < N_REINDEER; i++) {
+      current_x = first_x + (i * REINDEER_X_DIST);
+      this.reindeer.push(new Reindeer(current_x, first_y));
+    }
+  }
+  past_edge() {
+    return this.reindeer[N_REINDEER - 1].posX < -20;
+  }
+  update() {
+    for (let reindeer of this.reindeer) {
+      reindeer.posX -= this.speed;
+    }
+  }
+  display() {
+    for (let reindeer of this.reindeer) {
+      reindeer.display();
+    }
   }
 }
