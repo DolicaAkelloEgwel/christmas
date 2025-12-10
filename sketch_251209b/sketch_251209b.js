@@ -5,8 +5,12 @@ let halfHeight;
 let videoStretch;
 
 let N_SNOWFLAKES = 80;
+let RESIZE_FACTOR = 0.9;
+let VIDEO_SIZE = 512;
+let SNOWFLAKE_ROTATION_SPEED = 0.75;
 
 let sleigh;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -14,15 +18,17 @@ function setup() {
   halfWidth = windowWidth / 2;
   halfHeight = windowHeight / 2;
   
-  videoStretch = 512 * (windowHeight / 512)
+  videoStretch = VIDEO_SIZE * (windowHeight * RESIZE_FACTOR / VIDEO_SIZE);
   
   angleMode(DEGREES);
   textAlign(CENTER, CENTER);
   imageMode(CENTER);
   
   video = createCapture(VIDEO);
-  video.size(512, 512);
+  video.size(VIDEO_SIZE, VIDEO_SIZE);
   video.hide();
+  
+  //background = loadImage('https://w.wallhaven.cc/full/p9/wallhaven-p98w6e.jpg');
   
   for (let i = 0; i < N_SNOWFLAKES; i++) {
     snowflakes.push(new Snowflake());
@@ -34,13 +40,14 @@ function setup() {
 function draw() { 
   background(0);
   
-  image(video, halfWidth, halfHeight, videoStretch, height);
+  //image(background, halfWidth, halfHeight);
+  image(video, halfWidth, halfHeight, videoStretch, height * RESIZE_FACTOR);
   
   for (let flake of snowflakes) {
     flake.update();
     push();
     translate(flake.posX, flake.posY);
-    rotate((flake.angleOffset + frameCount) * 0.75);
+    rotate((flake.angleOffset + frameCount) * SNOWFLAKE_ROTATION_SPEED);
     flake.display();
     pop();
   }
@@ -108,9 +115,10 @@ class Sleigh {
     }
     if (this.reindeer[this.N_REINDEER - 1].posX < -200) {
       this.first_y = random(this.Y_BORDER, height - this.Y_BORDER);
+      let width_increase = width * 2.5;
       for (let reindeer of this.reindeer) {
         reindeer.posY = this.first_y;
-        reindeer.posX += width * 2.5;
+        reindeer.posX += width_increase;
       }
     }
   }
@@ -118,7 +126,7 @@ class Sleigh {
     for (let reindeer of this.reindeer) {
       push();
       translate(reindeer.posX, reindeer.posY);
-      rotate(cos(reindeer.posX * 0.75) * 90 * 0.25);
+      rotate(cos(reindeer.posX * 0.75) * 22.5);
       reindeer.display();
       pop();
     }
