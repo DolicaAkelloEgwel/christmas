@@ -2,12 +2,15 @@ let video;
 let snowflakes = [];
 let halfWidth;
 let halfHeight;
-let videoStretch;
+let videoWidthStretch;
+let videoHeightStretch;
 
 let N_SNOWFLAKES = 80;
 let RESIZE_FACTOR = 0.9;
 let VIDEO_SIZE = 512;
 let SNOWFLAKE_ROTATION_SPEED = 0.75;
+let MIN_SNOWFLAKE_SIZE = 30;
+let MAX_SNOWFLAKE_SIZE = 100;
 
 let sleigh;
 
@@ -60,13 +63,13 @@ class Snowflake {
   constructor() {
     this.posX = random(0, width);
     this.posY = random(-height, 0);
-    this.size = random(30, 100);
+    this.size = random(MIN_SNOWFLAKE_SIZE, MAX_SNOWFLAKE_SIZE);
     this.angleOffset = random(0, 360);
+    this.ySpeed = 80 / this.size;
     
   }
   update() {
-    let ySpeed = 80 / this.size;
-    this.posY += ySpeed;
+    this.posY += this.ySpeed;
     
     if (this.posY > height + 50) {
       this.posY = -50;
