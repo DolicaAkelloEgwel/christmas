@@ -26,7 +26,7 @@ let REINDEER_FREQUENCY_FACTOR = 0.375;
 let sleigh;
 
 function preload() {
-  bg = loadImage('https://w.wallhaven.cc/full/4g/wallhaven-4grg9l.jpg');
+  bg = loadImage('https://raw.githubusercontent.com/DolicaAkelloEgwel/christmas/refs/heads/main/assets/christmas-lights.jpg');
 }
 
 function setup() {
@@ -56,7 +56,8 @@ function setup() {
 function draw() { 
   background(0);
   
-  image(bg, 300, 0);
+  imageMode(CORNER);
+  image(bg, 0, 0);
 
   imageMode(CENTER);
   image(video, halfWidth, halfHeight, videoWidthStretch, videoHeightStretch);
