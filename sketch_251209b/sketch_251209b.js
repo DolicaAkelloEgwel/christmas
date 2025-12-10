@@ -5,14 +5,20 @@ let halfHeight;
 let videoWidthStretch;
 let videoHeightStretch;
 
-let N_SNOWFLAKES = 80;
 let RESIZE_FACTOR = 0.9;
 let VIDEO_SIZE = 512;
+
+let N_SNOWFLAKES = 80;
 let SNOWFLAKE_ROTATION_SPEED = 0.75;
 let MIN_SNOWFLAKE_SIZE = 30;
 let MAX_SNOWFLAKE_SIZE = 100;
+let SNOWFLAKE_Y_LIMIT = 50;
+
 let N_REINDEER = 9;
+let REINDEER_FONT_SIZE = 150;
+let REINDEER_Y_BORDER = 300;
 let REINDEER_X_DIST = 150;
+let MAX_REINDEER_ROTATION = 30;
 
 let sleigh;
 
@@ -72,8 +78,8 @@ class Snowflake {
   }
   update() {
     this.posY += this.ySpeed;
-    if (this.posY > height + 50) {
-      this.posY = -50;
+    if (this.posY > height + SNOWFLAKE_Y_LIMIT) {
+      this.posY = -SNOWFLAKE_Y_LIMIT;
     }
   }
   display() {
@@ -89,38 +95,34 @@ class Reindeer {
     this.posY = y;
   }
   display() {
-    textSize(150);
+    textSize(REINDEER_FONT_SIZE);
     text("🦌", 0, 0);
   }
 }
 
 class Sleigh {
   constructor() {
-    let current_x = 0;
-    this.Y_BORDER = 200
-    
-    this.first_x = width * 2;
-    this.first_y = random(this.Y_BORDER, height - this.Y_BORDER);
+    let reindeer_x = width * 2;
+    this.centre_y = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
     
     this.speed = 3;
     
-    this.reindeer = [new Reindeer(this.first_x, this.first_y)];
+    this.reindeer = [];
     
-    for (let i = 1; i < N_REINDEER; i++) {
-      current_x = this.first_x + (i * REINDEER_X_DIST);
-      this.reindeer.push(new Reindeer(current_x, this.first_y));
+    for (let i = 0; i < N_REINDEER; i++) {
+      this.reindeer.push(new Reindeer(reindeer_x, this.centre_y));
+      reindeer_x += REINDEER_X_DIST;
     }
   }
   update() {
     for (let reindeer of this.reindeer) {
       reindeer.posX -= this.speed;
-      reindeer.posY = this.first_y + sin(reindeer.posX * 0.75) * 50;
+      reindeer.posY = this.centre_y + sin(reindeer.posX * 0.5) * 75;
     }
     if (this.reindeer[N_REINDEER - 1].posX < -200) {
-      this.first_y = random(this.Y_BORDER, height - this.Y_BORDER);
+      this.centre_y = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
       let width_increase = width * 2.5;
       for (let reindeer of this.reindeer) {
-        reindeer.posY = this.first_y;
         reindeer.posX += width_increase;
       }
     }
@@ -129,7 +131,7 @@ class Sleigh {
     for (let reindeer of this.reindeer) {
       push();
       translate(reindeer.posX, reindeer.posY);
-      rotate(cos(reindeer.posX * 0.75) * 22.5);
+      rotate(cos(reindeer.posX * 0.5) * MAX_REINDEER_ROTATION);
       reindeer.display();
       pop();
     }
