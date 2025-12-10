@@ -18,7 +18,8 @@ function setup() {
   halfWidth = windowWidth / 2;
   halfHeight = windowHeight / 2;
   
-  videoStretch = VIDEO_SIZE * (windowHeight * RESIZE_FACTOR / VIDEO_SIZE);
+  videoWidthStretch = VIDEO_SIZE * (windowHeight * RESIZE_FACTOR / VIDEO_SIZE);
+  videoHeightStretch = height * RESIZE_FACTOR;
   
   angleMode(DEGREES);
   textAlign(CENTER, CENTER);
@@ -41,7 +42,7 @@ function draw() {
   background(0);
   
   //image(background, halfWidth, halfHeight);
-  image(video, halfWidth, halfHeight, videoStretch, height * RESIZE_FACTOR);
+  image(video, halfWidth, halfHeight, videoWidthStretch, videoHeightStretch);
   
   for (let flake of snowflakes) {
     flake.update();
