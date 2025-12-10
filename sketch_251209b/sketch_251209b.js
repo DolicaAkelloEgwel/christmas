@@ -4,6 +4,7 @@ let halfWidth;
 let halfHeight;
 let videoWidthStretch;
 let videoHeightStretch;
+let bg;
 
 let RESIZE_FACTOR = 0.9;
 let VIDEO_SIZE = 512;
@@ -24,6 +25,9 @@ let REINDEER_FREQUENCY_FACTOR = 0.375;
 
 let sleigh;
 
+function preload() {
+  bg = loadImage('https://w.wallhaven.cc/full/4g/wallhaven-4grg9l.jpg');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -36,13 +40,11 @@ function setup() {
   
   angleMode(DEGREES);
   textAlign(CENTER, CENTER);
-  imageMode(CENTER);
+  
   
   video = createCapture(VIDEO);
   video.size(VIDEO_SIZE, VIDEO_SIZE);
   video.hide();
-  
-  //background = loadImage('https://w.wallhaven.cc/full/p9/wallhaven-p98w6e.jpg');
   
   for (let i = 0; i < N_SNOWFLAKES; i++) {
     snowflakes.push(new Snowflake());
@@ -54,7 +56,9 @@ function setup() {
 function draw() { 
   background(0);
   
-  //image(background, halfWidth, halfHeight);
+  image(bg, 300, 0);
+
+  imageMode(CENTER);
   image(video, halfWidth, halfHeight, videoWidthStretch, videoHeightStretch);
   
   for (let flake of snowflakes) {
