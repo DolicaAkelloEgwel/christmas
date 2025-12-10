@@ -103,27 +103,27 @@ class Reindeer {
 
 class Sleigh {
   constructor() {
-    let reindeer_x = width * 2;
+    let reindeerX = width * 2;
 
-    this.centre_y = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
-    this.speed = 5;
-    this.reindeer_x_shift = width * 2.5;
+    this.centreY = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
+    this.xSpeed = 5;
+    this.reindeerXShift = width * 2.5;
     this.reindeer = [];
     
     for (let i = 0; i < N_REINDEER; i++) {
-      this.reindeer.push(new Reindeer(reindeer_x, this.centre_y));
-      reindeer_x += REINDEER_X_SEPARATION;
+      this.reindeer.push(new Reindeer(reindeerX, this.centreY));
+      reindeerX += REINDEER_X_SEPARATION;
     }
   }
   update() {
     for (let reindeer of this.reindeer) {
-      reindeer.posX -= this.speed;
-      reindeer.posY = this.centre_y + sin(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * 75;
+      reindeer.posX -= this.xSpeed;
+      reindeer.posY = this.centreY + sin(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * 75;
     }
     if (this.reindeer[N_REINDEER - 1].posX < REINDEER_X_LIMIT) {
-      this.centre_y = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
+      this.centreY = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
       for (let reindeer of this.reindeer) {
-        reindeer.posX += this.reindeer_x_shift;
+        reindeer.posX += this.reindeerXShift;
       }
     }
   }
