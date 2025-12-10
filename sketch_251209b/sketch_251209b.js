@@ -17,8 +17,10 @@ let SNOWFLAKE_Y_LIMIT = 50;
 let N_REINDEER = 9;
 let REINDEER_FONT_SIZE = 150;
 let REINDEER_Y_BORDER = 300;
-let REINDEER_X_DIST = 150;
-let MAX_REINDEER_ROTATION = 30;
+let REINDEER_X_SEPARATION = 150;
+let MAX_REINDEER_ROTATION = 35;
+let REINDEER_X_LIMIT = -200;
+let REINDEER_FREQUENCY_FACTOR = 0.375;
 
 let sleigh;
 
@@ -74,7 +76,6 @@ class Snowflake {
     this.size = random(MIN_SNOWFLAKE_SIZE, MAX_SNOWFLAKE_SIZE);
     this.angleOffset = random(0, 360);
     this.ySpeed = 80 / this.size;
-    
   }
   update() {
     this.posY += this.ySpeed;
@@ -103,27 +104,26 @@ class Reindeer {
 class Sleigh {
   constructor() {
     let reindeer_x = width * 2;
+
     this.centre_y = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
-    
-    this.speed = 3;
-    
+    this.speed = 5;
+    this.reindeer_x_shift = width * 2.5;
     this.reindeer = [];
     
     for (let i = 0; i < N_REINDEER; i++) {
       this.reindeer.push(new Reindeer(reindeer_x, this.centre_y));
-      reindeer_x += REINDEER_X_DIST;
+      reindeer_x += REINDEER_X_SEPARATION;
     }
   }
   update() {
     for (let reindeer of this.reindeer) {
       reindeer.posX -= this.speed;
-      reindeer.posY = this.centre_y + sin(reindeer.posX * 0.5) * 75;
+      reindeer.posY = this.centre_y + sin(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * 75;
     }
-    if (this.reindeer[N_REINDEER - 1].posX < -200) {
+    if (this.reindeer[N_REINDEER - 1].posX < REINDEER_X_LIMIT) {
       this.centre_y = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
-      let width_increase = width * 2.5;
       for (let reindeer of this.reindeer) {
-        reindeer.posX += width_increase;
+        reindeer.posX += this.reindeer_x_shift;
       }
     }
   }
@@ -131,7 +131,7 @@ class Sleigh {
     for (let reindeer of this.reindeer) {
       push();
       translate(reindeer.posX, reindeer.posY);
-      rotate(cos(reindeer.posX * 0.5) * MAX_REINDEER_ROTATION);
+      rotate(cos(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * MAX_REINDEER_ROTATION);
       reindeer.display();
       pop();
     }
