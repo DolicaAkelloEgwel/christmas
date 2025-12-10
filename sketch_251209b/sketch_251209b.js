@@ -6,8 +6,12 @@ let videoWidthStretch;
 let videoHeightStretch;
 let bg;
 
+let columns;
+let rows;
+
 let RESIZE_FACTOR = 0.9;
 let VIDEO_SIZE = 512;
+let BG_IMAGE_SIZE = 800;
 
 let N_SNOWFLAKES = 80;
 let SNOWFLAKE_ROTATION_SPEED = 0.75;
@@ -38,9 +42,11 @@ function setup() {
   videoWidthStretch = VIDEO_SIZE * (windowHeight * RESIZE_FACTOR / VIDEO_SIZE);
   videoHeightStretch = height * RESIZE_FACTOR;
   
+  columns = ceil(width / BG_IMAGE_SIZE);
+  rows = ceil(height / BG_IMAGE_SIZE);
+  
   angleMode(DEGREES);
   textAlign(CENTER, CENTER);
-  
   
   video = createCapture(VIDEO);
   video.size(VIDEO_SIZE, VIDEO_SIZE);
@@ -57,7 +63,11 @@ function draw() {
   background(0);
   
   imageMode(CORNER);
-  image(bg, 0, 0);
+  for (let i = 0; i < columns; i++) {
+    for (let j = 0; j < rows; j++) {
+      image(bg, i * BG_IMAGE_SIZE, j * BG_IMAGE_SIZE, BG_IMAGE_SIZE, BG_IMAGE_SIZE);   
+    }
+  }
 
   imageMode(CENTER);
   image(video, halfWidth, halfHeight, videoWidthStretch, videoHeightStretch);
