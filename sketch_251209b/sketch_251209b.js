@@ -11,6 +11,8 @@ let VIDEO_SIZE = 512;
 let SNOWFLAKE_ROTATION_SPEED = 0.75;
 let MIN_SNOWFLAKE_SIZE = 30;
 let MAX_SNOWFLAKE_SIZE = 100;
+let N_REINDEER = 9;
+let REINDEER_X_DIST = 150;
 
 let sleigh;
 
@@ -70,7 +72,6 @@ class Snowflake {
   }
   update() {
     this.posY += this.ySpeed;
-    
     if (this.posY > height + 50) {
       this.posY = -50;
     }
@@ -96,8 +97,6 @@ class Reindeer {
 class Sleigh {
   constructor() {
     let current_x = 0;
-    this.N_REINDEER = 9;
-    let REINDEER_X_DIST = 150;
     this.Y_BORDER = 200
     
     this.first_x = width * 2;
@@ -107,7 +106,7 @@ class Sleigh {
     
     this.reindeer = [new Reindeer(this.first_x, this.first_y)];
     
-    for (let i = 1; i < this.N_REINDEER; i++) {
+    for (let i = 1; i < N_REINDEER; i++) {
       current_x = this.first_x + (i * REINDEER_X_DIST);
       this.reindeer.push(new Reindeer(current_x, this.first_y));
     }
@@ -117,7 +116,7 @@ class Sleigh {
       reindeer.posX -= this.speed;
       reindeer.posY = this.first_y + sin(reindeer.posX * 0.75) * 50;
     }
-    if (this.reindeer[this.N_REINDEER - 1].posX < -200) {
+    if (this.reindeer[N_REINDEER - 1].posX < -200) {
       this.first_y = random(this.Y_BORDER, height - this.Y_BORDER);
       let width_increase = width * 2.5;
       for (let reindeer of this.reindeer) {
