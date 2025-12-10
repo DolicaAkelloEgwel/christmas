@@ -61,7 +61,7 @@ function draw() {
     flake.update();
     push();
     translate(flake.posX, flake.posY);
-    rotate((flake.angleOffset + frameCount) * SNOWFLAKE_ROTATION_SPEED);
+    rotate(flake.angleOffset + (frameCount * SNOWFLAKE_ROTATION_SPEED));
     flake.display();
     pop();
   }
@@ -74,7 +74,7 @@ class Snowflake {
     this.posX = random(0, width);
     this.posY = random(-height, 0);
     this.size = random(MIN_SNOWFLAKE_SIZE, MAX_SNOWFLAKE_SIZE);
-    this.angleOffset = random(0, 360);
+    this.angleOffset = random(0, 60);
     this.ySpeed = 80 / this.size;
   }
   update() {
