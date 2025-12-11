@@ -9,7 +9,7 @@ let bg;
 let columns;
 let rows;
 
-let RESIZE_FACTOR = 0.9;
+let RESIZE_FACTOR = 0.8;
 let VIDEO_SIZE = 512;
 let BG_IMAGE_SIZE = 240;
 
@@ -20,7 +20,7 @@ let MAX_SNOWFLAKE_SIZE = 100;
 let SNOWFLAKE_Y_LIMIT = 50;
 
 let N_REINDEER = 9;
-let REINDEER_FONT_SIZE = 150;
+let REINDEER_FONT_SIZE = 120;
 let REINDEER_Y_BORDER = 300;
 let REINDEER_X_SEPARATION = 150;
 let MAX_REINDEER_ROTATION = 35;
@@ -68,6 +68,7 @@ function draw() {
       image(bg, i * BG_IMAGE_SIZE, j * BG_IMAGE_SIZE, BG_IMAGE_SIZE, BG_IMAGE_SIZE);   
     }
   }
+  //image(bg, 0, 0);
 
   imageMode(CENTER);
   image(video, halfWidth, halfHeight, videoWidthStretch, videoHeightStretch);
