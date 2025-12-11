@@ -11,7 +11,7 @@ let rows;
 
 let RESIZE_FACTOR = 0.9;
 let VIDEO_SIZE = 512;
-let BG_IMAGE_SIZE = 800;
+let BG_IMAGE_SIZE = 400;
 
 let N_SNOWFLAKES = 80;
 let SNOWFLAKE_ROTATION_SPEED = 0.75;
@@ -30,7 +30,7 @@ let REINDEER_FREQUENCY_FACTOR = 0.375;
 let sleigh;
 
 function preload() {
-  bg = loadImage('https://raw.githubusercontent.com/DolicaAkelloEgwel/christmas/refs/heads/main/assets/christmas-lights.jpg');
+  bg = loadImage('https://raw.githubusercontent.com/DolicaAkelloEgwel/christmas/refs/heads/main/assets/background.png');
 }
 
 function setup() {
