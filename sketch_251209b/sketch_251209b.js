@@ -30,7 +30,7 @@ let REINDEER_FREQUENCY_FACTOR = 0.375;
 let sleigh;
 
 function preload() {
-  bg = loadImage('https://raw.githubusercontent.com/DolicaAkelloEgwel/christmas/refs/heads/main/assets/background.png');
+  bg = loadImage('https://raw.githubusercontent.com/DolicaAkelloEgwel/christmas/refs/heads/main/assets/christmas-lights.png');
 }
 
 function setup() {
