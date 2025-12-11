@@ -23,8 +23,9 @@ let N_REINDEER = 9;
 let REINDEER_FONT_SIZE = 150;
 let REINDEER_Y_BORDER = 300;
 let REINDEER_X_SEPARATION = 150;
-let MAX_REINDEER_ROTATION = 35;
+let MAX_REINDEER_ROTATION = 45;
 let REINDEER_X_LIMIT = -200;
+let REINDEER_Y_AMPLITUDE = 150;
 let REINDEER_FREQUENCY_FACTOR = 0.375;
 
 let sleigh;
@@ -42,26 +43,33 @@ function setup() {
   videoWidthStretch = VIDEO_SIZE * (windowHeight * RESIZE_FACTOR / VIDEO_SIZE);
   videoHeightStretch = height * RESIZE_FACTOR;
   
+  // determine the number of times the background image will need to be repeated
   columns = ceil(width / BG_IMAGE_SIZE);
   rows = ceil(height / BG_IMAGE_SIZE);
   
   angleMode(DEGREES);
+  
+  // centre text so that snowflake rotation looks right
   textAlign(CENTER, CENTER);
   
+  // retrieve webcam video - which is coming from Autolume through OBS Studio
   video = createCapture(VIDEO);
   video.size(VIDEO_SIZE, VIDEO_SIZE);
   video.hide();
   
+  // initialise snowflakes
   for (let i = 0; i < N_SNOWFLAKES; i++) {
     snowflakes.push(new Snowflake());
   }
   
+  // initialise the sleigh
   sleigh = new Sleigh();
 }
 
 function draw() { 
   background(0);
   
+  // tile the background image
   imageMode(CORNER);
   for (let i = 0; i < columns; i++) {
     for (let j = 0; j < rows; j++) {
@@ -69,9 +77,11 @@ function draw() {
     }
   }
 
+  // put the Autolume video in the centre
   imageMode(CENTER);
   image(video, halfWidth, halfHeight, videoWidthStretch, videoHeightStretch);
   
+  // move the slowflakes
   for (let flake of snowflakes) {
     flake.update();
     push();
@@ -80,6 +90,8 @@ function draw() {
     flake.display();
     pop();
   }
+  
+  // update and display the sleigh
   sleigh.update();
   sleigh.display();
 }
@@ -133,7 +145,7 @@ class Sleigh {
   update() {
     for (let reindeer of this.reindeer) {
       reindeer.posX -= this.xSpeed;
-      reindeer.posY = this.centreY + sin(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * 75;
+      reindeer.posY = this.centreY + sin(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * REINDEER_Y_AMPLITUDE;
     }
     if (this.reindeer[N_REINDEER - 1].posX < REINDEER_X_LIMIT) {
       this.centreY = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
