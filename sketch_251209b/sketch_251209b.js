@@ -11,7 +11,7 @@ let rows;
 
 let RESIZE_FACTOR = 0.8;
 let VIDEO_SIZE = 512;
-let BG_IMAGE_SIZE = 240;
+let BG_IMAGE_SIZE = 120;
 
 let N_SNOWFLAKES = 80;
 let SNOWFLAKE_ROTATION_SPEED = 0.75;
@@ -20,8 +20,8 @@ let MAX_SNOWFLAKE_SIZE = 100;
 let SNOWFLAKE_Y_LIMIT = 50;
 
 let N_REINDEER = 9;
-let REINDEER_FONT_SIZE = 120;
-let REINDEER_Y_BORDER = 300;
+let REINDEER_FONT_SIZE = 100;
+let REINDEER_Y_BORDER = 100;
 let REINDEER_X_SEPARATION = 150;
 let MAX_REINDEER_ROTATION = 45;
 let REINDEER_X_LIMIT = -200;
@@ -132,10 +132,11 @@ class Reindeer {
 class Sleigh {
   constructor() {
     let reindeerX = width * 2;
+    this.reindeerXOffset = 0;
 
     this.centreY = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
     this.xSpeed = 5;
-    this.reindeerXShift = width * 2.5;
+    this.reindeerXShift = width * 7.5;
     this.reindeer = [];
     
     for (let i = 0; i < N_REINDEER; i++) {
@@ -146,10 +147,11 @@ class Sleigh {
   update() {
     for (let reindeer of this.reindeer) {
       reindeer.posX -= this.xSpeed;
-      reindeer.posY = this.centreY + sin(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * REINDEER_Y_AMPLITUDE;
+      reindeer.posY = this.centreY + sin((this.reindeerXOffset + reindeer.posX) * REINDEER_FREQUENCY_FACTOR) * REINDEER_Y_AMPLITUDE;
     }
     if (this.reindeer[N_REINDEER - 1].posX < REINDEER_X_LIMIT) {
       this.centreY = random(REINDEER_Y_BORDER, height - REINDEER_Y_BORDER);
+      this.reindeerXOffset = random(0,360);
       for (let reindeer of this.reindeer) {
         reindeer.posX += this.reindeerXShift;
       }
@@ -159,7 +161,7 @@ class Sleigh {
     for (let reindeer of this.reindeer) {
       push();
       translate(reindeer.posX, reindeer.posY);
-      rotate(cos(reindeer.posX * REINDEER_FREQUENCY_FACTOR) * MAX_REINDEER_ROTATION);
+      rotate(cos((this.reindeerXOffset + reindeer.posX) * REINDEER_FREQUENCY_FACTOR) * MAX_REINDEER_ROTATION);
       reindeer.display();
       pop();
     }
